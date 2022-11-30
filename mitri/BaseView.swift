@@ -19,7 +19,7 @@ struct BaseView: View {
                 Text("Splash...")
             } else {
                 if loggedInUserState.isLoggedIn() {
-                    Text("Home")
+                    LoggedInUserView()
                 } else if loggedInUserState.isUserSetup() {
                     ProfileSetupView(loggedInUserState: loggedInUserState)
                 } else {
