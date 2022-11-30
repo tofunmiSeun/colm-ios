@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct mitriApp: App {
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BaseView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
         }
     }
 }
