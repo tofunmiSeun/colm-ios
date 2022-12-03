@@ -8,13 +8,18 @@
 import SwiftUI
 
 struct LoggedInUserView: View {
-    private var currentLoggedInUser = UserProfile.currentLoggedInUser()
-    
     var body: some View {
-        VStack {
-            Text("Hello \(currentLoggedInUser.name)")
-            Text("Your username is \(currentLoggedInUser.username)")
+        TabView {
+            HomeView()
+            .tabItem {
+                Label("Home", systemImage: "house.fill")
+            }
+            Text("Discover")
+            .tabItem {
+                Label("Discover", systemImage: "plus")
+            }
         }
+        .environmentObject(UserProfile.currentLoggedInUser())
     }
 }
 

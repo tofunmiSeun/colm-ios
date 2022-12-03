@@ -8,12 +8,20 @@
 import Foundation
 import SwiftUI
 
-struct UserProfile {
+class UserProfile: ObservableObject {
     let userId: String
     let profileId: String
     let username: String
     let name: String
     let email: String
+    
+    init(userId: String, profileId: String, username: String, name: String, email: String) {
+        self.userId = userId
+        self.profileId = profileId
+        self.username = username
+        self.name = name
+        self.email = email
+    }
     
     static func currentLoggedInUser() -> UserProfile {
         @AppStorage("userId") var userId: String = ""
@@ -23,5 +31,9 @@ struct UserProfile {
         @AppStorage("email") var email: String = ""
         
         return UserProfile(userId: userId, profileId: profileId, username: username, name: name, email: email)
+    }
+    
+    static func mockUser() -> UserProfile {
+        return UserProfile(userId: "user123", profileId: "profile123", username: "tofunmi_og", name: "Tofunmi", email: "tofunmiseun@gmail.com")
     }
 }
