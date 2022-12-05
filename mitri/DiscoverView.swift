@@ -31,7 +31,7 @@ struct DiscoverView: View {
                 ForEach(tabs, id: \.self) { tab in
                     Text("\(tab.labelText)")
                         .onTapGesture {
-                            selectedTab = .topPosts
+                            selectedTab = tab
                         }
                         .fontWeight(.semibold)
                         .padding(.horizontal, 12)
