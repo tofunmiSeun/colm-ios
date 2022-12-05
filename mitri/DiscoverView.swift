@@ -50,7 +50,7 @@ struct DiscoverView: View {
     }
     
     func textColorForTabLabel(_ tabForLabel: DiscoverViewTab) -> Color {
-        return tabForLabel == selectedTab ? .black : .gray
+        return tabForLabel == selectedTab ? .primary : .gray
     }
     
     func backgrounOpacityForTabLabel(_ tabForLabel: DiscoverViewTab) -> Double {
