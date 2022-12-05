@@ -14,9 +14,9 @@ struct LoggedInUserView: View {
             .tabItem {
                 Label("Home", systemImage: "house.fill")
             }
-            Text("Discover")
+            DiscoverView()
             .tabItem {
-                Label("Discover", systemImage: "plus")
+                Label("Discover", systemImage: "magnifyingglass")
             }
         }
         .environmentObject(UserProfile.currentLoggedInUser())

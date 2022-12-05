@@ -22,6 +22,7 @@ struct PostListItem: View {
                     togglePostReaction()
                 } label: {
                     Image(systemName: post.likedByProfile ? "hand.thumbsup.fill" : "hand.thumbsup")
+                        .foregroundColor(.red)
                 }.buttonStyle(.borderless)
             }.padding(.top, 10)
         }
