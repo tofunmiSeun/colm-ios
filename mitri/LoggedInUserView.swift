@@ -9,16 +9,17 @@ import SwiftUI
 
 struct LoggedInUserView: View {
     var body: some View {
-        TabView {
-            HomeView()
-            .tabItem {
-                Label("Home", systemImage: "house.fill")
-            }
-            DiscoverView()
-            .tabItem {
-                Label("Discover", systemImage: "magnifyingglass")
-            }
-        }
+//        TabView {
+//            HomeView()
+//            .tabItem {
+//                Label("Home", systemImage: "house.fill")
+//            }
+//            DiscoverView()
+//            .tabItem {
+//                Label("Discover", systemImage: "magnifyingglass")
+//            }
+//        }
+        HomeView()
         .environmentObject(UserProfile.currentLoggedInUser())
     }
 }
