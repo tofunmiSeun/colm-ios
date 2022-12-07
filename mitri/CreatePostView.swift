@@ -42,17 +42,14 @@ struct CreatePostView: View {
                         if let uiImage = UIImage(data: selectedImagesData[idx]) {
                             ZStack(alignment: .topLeading) {
                                 
-                                GeometryReader { geo in
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: .infinity)
-                                        .imageViewHeight(imagesCount: selectedImagesData.count)
-                                        .border(Color(white: 0.75))
-                                        .clipped()
-                                        .cornerRadius(4)
-                                }
-                                
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: .infinity)
+                                    .imageViewHeight(imagesCount: selectedImagesData.count)
+                                    .border(Color(white: 0.75))
+                                    .clipped()
+                                    .cornerRadius(4)
                                 
                                 Image(systemName: "xmark.circle.fill")
                                     .resizable()
