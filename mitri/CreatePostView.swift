@@ -8,13 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-extension View {
-    func imageViewHeight(imagesCount: Int) -> some View {
-        self
-            .frame(height: imagesCount == 1 ? 450 : 200)
-    }
-}
-
 struct CreatePostView: View {
     @EnvironmentObject var loggedInUser: UserProfile
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
@@ -23,12 +16,11 @@ struct CreatePostView: View {
     @State private var selectedPhotoPickerItems = [PhotosPickerItem]()
     @State private var selectedImagesData = [Data]()
     
-    private var prompt = Text("Say something").font(.title2)
     private var verticalDivider: some View = Divider().padding(.vertical, 8)
     
     var body: some View {
         VStack {
-            TextField( text: $text, prompt: prompt) {
+            TextField( text: $text, prompt: Text("Say something").promptText()) {
                 Text("Text")
             }
             .onSubmit {
@@ -45,7 +37,6 @@ struct CreatePostView: View {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: .infinity)
                                     .imageViewHeight(imagesCount: selectedImagesData.count)
                                     .border(Color(white: 0.75))
                                     .clipped()

@@ -14,16 +14,24 @@ struct PostListItem: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("\(post.authorUsername)")
-                .fontWeight(.semibold)
+                .styleAsUsername()
+            
             Text("\(post.content)")
-                .fontWeight(.thin)
-            HStack(spacing: 8) {
-                Button {
-                    togglePostReaction()
-                } label: {
-                    Image(systemName: post.likedByProfile ? "hand.thumbsup.fill" : "hand.thumbsup")
-                        .foregroundColor(.red)
-                }.buttonStyle(.borderless)
+                .styleAsPostText()
+            
+            HStack(spacing: 12) {
+                
+                Image(systemName: post.likedByProfile ? "heart.fill" : "heart")
+                    .foregroundColor(post.likedByProfile ? .red : .gray)
+                    .onTapGesture {
+                        togglePostReaction()
+                    }
+                
+                NavigationLink(destination: PostDetailsView(post: post)) {
+                    Image(systemName: "message")
+                        .foregroundColor(.gray)
+                }
+                
             }.padding(.top, 10)
         }
     }
@@ -40,8 +48,10 @@ struct PostListItem: View {
 
 struct PostListItem_Previews: PreviewProvider {
     static var previews: some View {
-        PostListItem(post: Post.mock)
-            .frame(width: .infinity, height: 100)
-            .environmentObject(UserProfile.mockUser())
+        NavigationStack {
+            PostListItem(post: Post.mock)
+                .frame(width: .infinity, height: 100)
+                .environmentObject(UserProfile.mockUser())
+        }
     }
 }
