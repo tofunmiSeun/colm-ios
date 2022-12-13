@@ -32,8 +32,9 @@ struct BaseView: View {
     }
     
     func checkUserAuthStatus() async {
-        try? await Task.sleep(nanoseconds: 2_000_000_000)
-        initialisingPage = false
+        withAnimation(.linear(duration: 2)) {
+            initialisingPage = false
+        }
     }
 }
 
