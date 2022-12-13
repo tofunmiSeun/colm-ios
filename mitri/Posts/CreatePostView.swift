@@ -19,7 +19,7 @@ struct CreatePostView: View {
     private var verticalDivider: some View = Divider().padding(.vertical, 8)
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             TextField( text: $text, prompt: Text("Say something").promptText()) {
                 Text("Text")
             }
