@@ -28,6 +28,17 @@ struct PostDetailsView: View {
                     .styleAsPostText()
             }.padding(.bottom, 12)
             
+            if let mediaContents = post.mediaContents {
+                VStack {
+                    TabView {
+                        ForEach(mediaContents) { content in
+                            MediaContentView(mediaContent: content)
+                        }
+                    }
+                    .styleAsMediaContentCarousel()
+                }.padding(.vertical, 16)
+            }
+            
             Divider()
             
             List {
@@ -87,6 +98,6 @@ struct PostDetailsView: View {
 
 struct PostDetailsView_Previews: PreviewProvider {
     static var previews: some View {
-        PostDetailsView(post: Post.mock)
+        PostDetailsView(post: Post.mockWithMediaContent)
     }
 }

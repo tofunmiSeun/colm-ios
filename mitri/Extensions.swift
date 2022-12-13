@@ -30,3 +30,14 @@ extension Text {
             .fontWeight(.thin)
     }
 }
+
+extension TabView {
+    func styleAsMediaContentCarousel() -> some View {
+        self
+            .tabViewStyle(.page(indexDisplayMode: .always))
+            .frame(height: 250)
+            .background(.gray)
+            .background(.ultraThinMaterial)
+            .cornerRadius(4)
+    }
+}

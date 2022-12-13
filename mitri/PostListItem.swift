@@ -19,6 +19,17 @@ struct PostListItem: View {
             Text("\(post.content)")
                 .styleAsPostText()
             
+            if let mediaContents = post.mediaContents {
+                VStack {
+                    TabView {
+                        ForEach(mediaContents) { content in
+                            MediaContentView(mediaContent: content)
+                        }
+                    }
+                    .styleAsMediaContentCarousel()
+                }.padding(.vertical, 16)
+            }
+            
             HStack(spacing: 12) {
                 
                 Image(systemName: post.likedByProfile ? "heart.fill" : "heart")
@@ -49,8 +60,8 @@ struct PostListItem: View {
 struct PostListItem_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PostListItem(post: Post.mock)
-                .frame(width: .infinity, height: 100)
+            PostListItem(post: Post.mockWithMediaContent)
+                .frame(width: .infinity, height: 500)
                 .environmentObject(UserProfile.mockUser())
         }
     }
