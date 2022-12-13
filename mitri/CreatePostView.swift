@@ -76,7 +76,6 @@ struct CreatePostView: View {
                 }
             }
             .padding(.horizontal, 8)
-            .hidden()
         }
         .padding()
         .navigationTitle("Create post")
@@ -89,7 +88,7 @@ struct CreatePostView: View {
                 } label: {
                     Text("Post")
                 }
-                .disabled(text.count == 0)
+                .disabled(text.count == 0 && selectedImagesData.count == 0)
                 .buttonStyle(.borderedProminent)
                 .cornerRadius(16)
             }
@@ -114,7 +113,29 @@ struct CreatePostView: View {
     }
     
     func newPost() {
-        Api.post(uri: "/post?profileId=\(loggedInUser.profileId)", body: ["content": text]) { data in
+        var uploads = [UploadableMediaContent]()
+        if text.count > 0 {
+            uploads.append(UploadableMediaContent(name: "text", data: Data(text.utf8)))
+        }
+        
+        for index in selectedPhotoPickerItems.indices {
+            let photoPickerItem = selectedPhotoPickerItems[index]
+            let imageData = selectedImagesData[index]
+            
+            var mediaContent = UploadableMediaContent(name: "files", data: imageData)
+            if photoPickerItem.supportedContentTypes.count > 0 {
+                let imageInfo = photoPickerItem.supportedContentTypes[0]
+                mediaContent.fileName = imageInfo.identifier
+                if let mimeType = imageInfo.preferredMIMEType {
+                    mediaContent.mimeType = mimeType
+                }
+            }
+            
+            uploads.append(mediaContent)
+        }
+        
+        Api.upload(uri: "/post/create?profileId=\(loggedInUser.profileId)",
+                   uploads: uploads) { data in
             DispatchQueue.main.async {
                 self.mode.wrappedValue.dismiss()
             }
