@@ -12,40 +12,8 @@ struct PostListItem: View {
     @State var post: Post
     var onPostDeletion: () -> Void
     
-    @State private var profileIdTapped: Bool = false
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            
-            HStack {
-                
-                Text("\(post.authorUsername)")
-                    .styleAsUsername()
-                    .onTapGesture {
-                        profileIdTapped = true
-                    }
-                
-                Spacer()
-                
-                Menu {
-                    
-                    if post.author == loggedInUser.profileId {
-                        Button(role: .destructive) {
-                            deletePost()
-                        } label: {
-                            Label("Delete", systemImage: "trash.circle")
-                                .foregroundColor(.red)
-                        }
-                    }
-                    
-                } label: {
-                    Label("Actions", systemImage: "ellipsis")
-                        .labelStyle(.iconOnly)
-                        .foregroundColor(.gray)
-                }
-            }
-            
-            
+    var postContentLayout: some View {
+        VStack(alignment: .leading) {
             if let postText = post.content {
                 Text("\(postText)")
                     .styleAsPostText()
@@ -63,6 +31,43 @@ struct PostListItem: View {
                     }.padding(.vertical, 16)
                 }
             }
+        }
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                NavigationLink {
+                    ProfileView(profileId: post.author)
+                } label: {
+                    Text("\(post.authorUsername)")
+                        .styleAsUsername()
+                }.buttonStyle(.plain)
+                
+                Spacer()
+                
+                Menu {
+                    if post.author == loggedInUser.profileId {
+                        Button(role: .destructive) {
+                            deletePost()
+                        } label: {
+                            Label("Delete", systemImage: "trash.circle")
+                                .foregroundColor(.red)
+                        }
+                    }
+                    
+                } label: {
+                    Label("Actions", systemImage: "ellipsis")
+                        .labelStyle(.iconOnly)
+                        .foregroundColor(.gray)
+                }
+            }
+            
+            NavigationLink {
+                PostDetailsView(post: post)
+            } label: {
+                postContentLayout
+            }.buttonStyle(.plain)
             
             HStack(spacing: 12) {
                 Image(systemName: post.likedByProfile ? "heart.fill" : "heart")
@@ -71,9 +76,6 @@ struct PostListItem: View {
                         togglePostReaction()
                     }
             }.padding(.top, 10)
-        }.sheet(isPresented: $profileIdTapped) {
-            ProfileView(profileId: post.author)
-                .presentationDetents([.fraction(0.25), .large])
         }
     }
     

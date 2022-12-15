@@ -14,12 +14,12 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
-                List {
+                ScrollView(showsIndicators: false) {
                     ForEach(posts) { post in
                         PostListItem(post: post, onPostDeletion: fetchPosts)
                     }
                 }
-                .listStyle(.plain)
+                .padding()
                 .refreshable {
                     fetchPosts()
                 }
