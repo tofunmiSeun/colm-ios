@@ -15,24 +15,27 @@ struct ProfileView: View {
     @State private var postsByProfile = [Post]()
     
     var body: some View {
-        ScrollView {
-            if let overview = profileOverview {
-                VStack(spacing: 16) {
-                    ProfileOverviewView(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
-                    
-                    Divider()
-                    
-                    LazyVStack {
+        NavigationStack {
+            ScrollView {
+                if let overview = profileOverview {
+                    VStack(spacing: 16) {
+                        ProfileOverviewView(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
+                        
+                        Divider()
+                        
                         ForEach(postsByProfile) { post in
                             PostListItem(post: post, onPostDeletion: fetchPostsByProfile)
                         }
                     }
+                    .padding()
                 }
-                .padding()
             }
-        }.task {
-            fetchProfileOverview()
-            fetchPostsByProfile()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("\(profileOverview?.username ?? "")")
+            .task {
+                fetchProfileOverview()
+                fetchPostsByProfile()
+            }
         }
     }
     
