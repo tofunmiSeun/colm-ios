@@ -24,11 +24,6 @@ struct LoginView: View {
                 GoogleSignInButton(action: onGoogleSignInButtonClicked)
             }.padding(.bottom, 100)
         }.padding()
-            .task {
-                await UserAuth.maybeSignInUserInBackground { userSetupResponse in
-                    onUserSuccessfullySetup(userSetupResponse: userSetupResponse)
-                }
-            }
     }
     
     func onGoogleSignInButtonClicked() {
@@ -45,7 +40,6 @@ struct LoginView: View {
             loggedInUserState.saveProfileDetails(profileId: profileId, username: username)
         }
     }
-    
 }
 
 struct LoginView_Previews: PreviewProvider {

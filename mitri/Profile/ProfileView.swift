@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var loggedInUser: UserProfile
+    @EnvironmentObject var loggedInUserState: LoggedInUserState
     let profileId: String
     
     @State var profileOverview: ProfileOverview?
@@ -35,6 +36,22 @@ struct ProfileView: View {
             .task {
                 fetchProfileOverview()
                 fetchPostsByProfile()
+            }.toolbar {
+                if profileOverview?.id ?? "" == loggedInUser.profileId {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button(role: .destructive) {
+                                logUserout()
+                            } label: {
+                                Text("Logout")
+                            }
+                        } label: {
+                            Label("Actions", systemImage: "ellipsis")
+                                .labelStyle(.iconOnly)
+                                .foregroundColor(.primary)
+                        }
+                    }
+                }
             }
         }
     }
@@ -56,6 +73,12 @@ struct ProfileView: View {
                     postsByProfile = response
                 }
             }
+        }
+    }
+    
+    func logUserout() {
+        Api.post(uri: "/user/logout") { _ in
+            loggedInUserState.clearSavedUserProfile()
         }
     }
 }

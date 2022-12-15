@@ -18,22 +18,20 @@ struct BaseView: View {
             if initialisingPage {
                 Text("Splash...")
             } else {
-                if loggedInUserState.isLoggedIn() {
-                    LoggedInUserView()
-                } else if loggedInUserState.isUserSetup() {
-                    ProfileSetupView(loggedInUserState: loggedInUserState)
-                } else {
+                switch loggedInUserState.authState {
+                case .none:
                     LoginView(loggedInUserState: loggedInUserState)
+                case .authorized:
+                    ProfileSetupView(loggedInUserState: loggedInUserState)
+                case .registered:
+                    LoggedInUserView()
+                        .environmentObject(loggedInUserState)
                 }
             }
         }.task {
-            await checkUserAuthStatus()
-        }
-    }
-    
-    func checkUserAuthStatus() async {
-        withAnimation(.linear(duration: 2)) {
-            initialisingPage = false
+            withAnimation(.linear(duration: 2)) {
+                initialisingPage = false
+            }
         }
     }
 }
