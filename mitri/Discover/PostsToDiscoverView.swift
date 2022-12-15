@@ -36,6 +36,7 @@ struct PostsToDiscoverView: View {
 
 struct PostsToDiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        PostsToDiscoverView(posts: [Post.mock]).environmentObject(UserProfile.mockUser())
+        PostsToDiscoverView(posts: [Post.mock])
+            .environmentObject(UserProfile.mockUser())
     }
 }
