@@ -9,7 +9,6 @@ import SwiftUI
 
 struct PostDetailsView: View {
     @EnvironmentObject var loggedInUser: UserProfile
-    
     @FocusState private var isUsernameFocused: Bool
     let post: Post
     
@@ -18,79 +17,59 @@ struct PostDetailsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            
-            VStack(alignment: .leading, spacing: 4) {
-                Text("\(post.authorUsername)")
-                    .styleAsUsername()
-                    .font(.title)
-                
-                Text("\(post.content)")
-                    .styleAsPostText()
-            }.padding(.bottom, 12)
-            
-            if let mediaContents = post.mediaContents {
-                VStack {
-                    TabView {
-                        ForEach(mediaContents) { content in
-                            MediaContentView(mediaContent: content)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("\(post.authorUsername)")
+                        .styleAsUsername()
+                        .font(.title)
+                    
+                    if let postText = post.content {
+                        Text("\(postText)")
+                            .styleAsPostText()
+                    }
+                    
+                    if let mediaContents = post.mediaContents {
+                        if mediaContents.count > 0 {
+                            VStack {
+                                TabView {
+                                    ForEach(mediaContents) { content in
+                                        MediaContentView(mediaContent: content)
+                                    }
+                                }
+                                .styleAsMediaContentCarousel()
+                            }.padding(.vertical, 16)
                         }
                     }
-                    .styleAsMediaContentCarousel()
-                }.padding(.vertical, 16)
+                    
+                    
+                    if replies.count > 0 {
+                        Text("Replies").font(.subheadline)
+                        LazyVStack(alignment: .leading) {
+                            ForEach(replies) { post in
+                                PostListItem(post: post, onPostDeletion: getReplies)
+                            }
+                        }
+                    }
+                    
+                }.padding()
             }
-            
-            Divider()
-            
-            List {
-                ForEach(replies) { post in
-                    PostListItem(post: post)
-                }
-            }
-            .listStyle(.plain)
-            .onAppear {
-                getReplies()
-            }
-            
-            Spacer()
-            Divider()
-            HStack {
-                TextField(text: $reply, prompt: Text("Reply post").promptText()) {
-                    Text("Text")
-                }
-                .autocorrectionDisabled()
-                Spacer()
-                Button {
-                    replyToPost()
-                } label: {
-                    Text("Send")
-                }
-                .buttonStyle(.borderedProminent)
-                .cornerRadius(16)
-                .font(.subheadline)
-                .disabled(reply.count == 0)
-            }
-            .padding(8)
-        }.padding()
+            VStack {
+                Divider()
+                PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: getReplies)
+            }.padding()
+        }
+        .onAppear {
+            getReplies()
+        }
     }
     
     func getReplies() {
         let uri = "/post/\(post.id)/replies?profileId=\(loggedInUser.profileId)"
         Api.get(uri: uri) { data in
-            DispatchQueue.main.async {
-                if let response: [Post] = Api.Utils.decodeAsObject(data: data) {
+            if let response: [Post] = Api.Utils.decodeAsObject(data: data) {
+                DispatchQueue.main.async {
                     replies = response
                 }
-            }
-        }
-    }
-    
-    func replyToPost() {
-        let uri = "/post/\(post.id)/reply?profileId=\(loggedInUser.profileId)"
-        Api.post(uri: uri, body: ["content": reply]) { _ in
-            DispatchQueue.main.async {
-                reply = ""
-                print("Successful")
-                getReplies()
             }
         }
     }
@@ -99,5 +78,6 @@ struct PostDetailsView: View {
 struct PostDetailsView_Previews: PreviewProvider {
     static var previews: some View {
         PostDetailsView(post: Post.mockWithMediaContent)
+            .environmentObject(UserProfile.mockUser())
     }
 }

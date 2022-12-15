@@ -10,40 +10,71 @@ import SwiftUI
 struct PostListItem: View {
     @EnvironmentObject var loggedInUser: UserProfile
     @State var post: Post
+    var onPostDeletion: () -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("\(post.authorUsername)")
-                .styleAsUsername()
             
-            Text("\(post.content)")
-                .styleAsPostText()
-            
-            if let mediaContents = post.mediaContents {
-                VStack {
-                    TabView {
-                        ForEach(mediaContents) { content in
-                            MediaContentView(mediaContent: content)
+            HStack {
+                
+                Text("\(post.authorUsername)")
+                    .styleAsUsername()
+                
+                Spacer()
+                
+                Menu {
+                    
+                    if post.author == loggedInUser.profileId {
+                        Button(role: .destructive) {
+                            deletePost()
+                        } label: {
+                            Label("Delete", systemImage: "trash.circle")
+                                .foregroundColor(.red)
                         }
                     }
-                    .styleAsMediaContentCarousel()
-                }.padding(.vertical, 16)
+                    
+                } label: {
+                    Label("Actions", systemImage: "ellipsis")
+                        .labelStyle(.iconOnly)
+                        .foregroundColor(.gray)
+                }
+            }
+            
+            
+            if let postText = post.content {
+                Text("\(postText)")
+                    .styleAsPostText()
+            }
+            
+            if let mediaContents = post.mediaContents {
+                if mediaContents.count > 0 {
+                    VStack {
+                        TabView {
+                            ForEach(mediaContents) { content in
+                                MediaContentView(mediaContent: content)
+                            }
+                        }
+                        .styleAsMediaContentCarousel()
+                    }.padding(.vertical, 16)
+                }
             }
             
             HStack(spacing: 12) {
-                
                 Image(systemName: post.likedByProfile ? "heart.fill" : "heart")
                     .foregroundColor(post.likedByProfile ? .red : .gray)
                     .onTapGesture {
                         togglePostReaction()
                     }
-                
-                NavigationLink(destination: PostDetailsView(post: post)) {
-                    Image(systemName: "message")
-                        .foregroundColor(.gray)
-                }
-                
             }.padding(.top, 10)
+        }
+    }
+    
+    func deletePost() {
+        let uri = "/post/\(post.id)?profileId=\(loggedInUser.profileId)"
+        Api.delete(uri: uri) { data in
+            DispatchQueue.main.async {
+                onPostDeletion()
+            }
         }
     }
     
@@ -59,10 +90,8 @@ struct PostListItem: View {
 
 struct PostListItem_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationStack {
-            PostListItem(post: Post.mockWithMediaContent)
-                .frame(width: .infinity, height: 500)
-                .environmentObject(UserProfile.mockUser())
-        }
+        PostListItem(post: Post.mockWithMediaContent, onPostDeletion: {return})
+            .previewLayout(PreviewLayout.sizeThatFits)
+            .environmentObject(UserProfile.mockUser())
     }
 }

@@ -15,17 +15,18 @@ struct MediaContent: Identifiable, Codable {
 
 struct Post: Identifiable, Codable {
     var id: String;
-    var content: String;
+    var author: String;
+    var content: String?;
     var mediaContents: [MediaContent]?;
     var authorUsername: String;
     var authorName: String?;
     var likedByProfile: Bool;
     
     
-    static var mock = Post(id: "id_qww", content: "Mitri, not just another bird app", authorUsername: "tofunmi",
-                           authorName: "Oluwaseun", likedByProfile: true)
+    static var mock = Post(id: "id_qww", author: "auth_dd", content: "Mitri, not just another bird app",
+                           authorUsername: "tofunmi",  authorName: "Oluwaseun", likedByProfile: true)
     
-    static var mockWithMediaContent = Post(id: "id_qww", content: "Mitri, not just another bird app",
+    static var mockWithMediaContent = Post(id: "id_qww", author: "auth_dd", content: "Mitri, not just another bird app",
                                            mediaContents: MediaContent.mocks,
                                            authorUsername: "tofunmi", authorName: "Oluwaseun", likedByProfile: true)
     

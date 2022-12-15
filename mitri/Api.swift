@@ -12,7 +12,7 @@ struct Api {
     
     static func get(uri: String, completionHandler: @escaping (Data) -> Void) {
         guard let url = URL(string: serverUrl + uri) else {
-            print("Invalid url")
+            handleInvalidUrl(uri: uri)
             return
         }
 
@@ -23,7 +23,7 @@ struct Api {
     
     static func post(uri: String, body: Optional<Encodable> = nil, completionHandler: @escaping (Data) -> Void) {
         guard let url = URL(string: serverUrl + uri) else {
-            print("Invalid url")
+            handleInvalidUrl(uri: uri)
             return
         }
         
@@ -44,9 +44,23 @@ struct Api {
         }.resume()
     }
     
+    static func delete(uri: String, completionHandler: @escaping (Data) -> Void) {
+        guard let url = URL(string: serverUrl + uri) else {
+            handleInvalidUrl(uri: uri)
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "DELETE"
+
+        URLSession.shared.dataTask(with: urlRequest) {(data, response, error) in
+            onApiResponse(data: data, response: response, error: error, completionHandler: completionHandler)
+        }.resume()
+    }
+    
     static func upload(uri: String, uploads: [UploadableMediaContent], completionHandler: @escaping (Data) -> Void) {
         guard let url = URL(string: serverUrl + uri) else {
-            print("Invalid url")
+            handleInvalidUrl(uri: uri)
             return
         }
         
@@ -86,6 +100,10 @@ struct Api {
         data.append("--\(boundary)-".data(using: .utf8)!)
         
         return data
+    }
+    
+    private static func handleInvalidUrl(uri: String) {
+        print("Invalid uri \(uri)")
     }
     
     private static func onApiResponse(data: Data?, response: URLResponse?, error: Error?, completionHandler: @escaping (Data) -> Void) {

@@ -8,9 +8,9 @@
 import SwiftUI
 
 extension View {
-    func imageViewHeight(imagesCount: Int) -> some View {
+    func imageViewHeight() -> some View {
         self
-            .frame(height: imagesCount == 1 ? 450 : 200)
+            .frame(height: 200)
     }
 }
 

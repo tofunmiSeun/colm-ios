@@ -16,7 +16,12 @@ struct HomeView: View {
             ZStack(alignment: .bottom) {
                 List {
                     ForEach(posts) { post in
-                        PostListItem(post: post)
+                        ZStack {
+                            NavigationLink(destination: PostDetailsView(post: post)) {
+                                EmptyView()
+                            }.opacity(0.0)
+                            PostListItem(post: post, onPostDeletion: fetchPosts)
+                        }
                     }
                 }
                 .listStyle(.plain)
