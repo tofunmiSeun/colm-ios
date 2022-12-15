@@ -20,15 +20,16 @@ struct BaseView: View {
             } else {
                 switch loggedInUserState.authState {
                 case .none:
-                    LoginView(loggedInUserState: loggedInUserState)
+                    LoginView()
                 case .authorized:
-                    ProfileSetupView(loggedInUserState: loggedInUserState)
+                    ProfileSetupView()
                 case .registered:
                     LoggedInUserView()
-                        .environmentObject(loggedInUserState)
                 }
             }
-        }.task {
+        }
+        .environmentObject(loggedInUserState)
+        .task {
             withAnimation(.linear(duration: 2)) {
                 initialisingPage = false
             }

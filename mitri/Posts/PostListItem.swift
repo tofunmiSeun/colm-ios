@@ -28,14 +28,14 @@ struct PostListItem: View {
                             }
                         }
                         .styleAsMediaContentCarousel()
-                    }.padding(.vertical, 16)
+                    }
                 }
             }
         }
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 16) {
             HStack {
                 NavigationLink {
                     ProfileView(profileId: post.author)
@@ -75,6 +75,8 @@ struct PostListItem: View {
                         togglePostReaction()
                     }
             }.padding(.top, 10)
+            
+            Divider().padding(.bottom, 16)
         }
     }
     

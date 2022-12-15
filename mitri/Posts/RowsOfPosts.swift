@@ -22,6 +22,6 @@ struct RowsOfPosts: View {
 
 struct RowsOfPosts_Previews: PreviewProvider {
     static var previews: some View {
-        RowsOfPosts(posts: [Post.mock], onPostDeletion: {return})
+        RowsOfPosts(posts: [Post.mock, Post.mock], onPostDeletion: {return})
     }
 }

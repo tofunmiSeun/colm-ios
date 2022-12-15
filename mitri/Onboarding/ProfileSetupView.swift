@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileSetupView: View {
-   @ObservedObject var loggedInUserState: LoggedInUserState
+    @EnvironmentObject var loggedInUserState: LoggedInUserState
     
     @State private var username = ""
     @State private var lastCheckedUsername = ""
@@ -96,10 +96,8 @@ struct ProfileSetupView: View {
 }
 
 struct ProfileSetupView_Previews: PreviewProvider {
-    static let loggedInUserState = LoggedInUserState()
     static var previews: some View {
-        ProfileSetupView(loggedInUserState: loggedInUserState).onAppear {
-            loggedInUserState.name = "Tofunmi"
-        }
+        ProfileSetupView()
+            .environmentObject(LoggedInUserState())
     }
 }

@@ -35,7 +35,7 @@ extension TabView {
     func styleAsMediaContentCarousel() -> some View {
         self
             .tabViewStyle(.page(indexDisplayMode: .always))
-            .frame(height: 150)
+            .frame(height: 200)
             .background(.gray)
             .background(.ultraThinMaterial)
             .cornerRadius(4)

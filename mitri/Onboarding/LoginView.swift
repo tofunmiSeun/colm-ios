@@ -9,7 +9,7 @@ import SwiftUI
 import GoogleSignInSwift
 
 struct LoginView: View {
-    @ObservedObject var loggedInUserState: LoggedInUserState
+    @EnvironmentObject var loggedInUserState: LoggedInUserState
     
     var body: some View {
         VStack {
@@ -44,6 +44,7 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(loggedInUserState: LoggedInUserState())
+        LoginView()
+            .environmentObject(LoggedInUserState())
     }
 }
