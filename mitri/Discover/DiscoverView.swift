@@ -27,8 +27,8 @@ struct DiscoverView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                HStack(spacing: 12) {
+            VStack(spacing: 16) {
+                HStack(spacing: 4) {
                     ForEach(tabs, id: \.self) { tab in
                         Text("\(tab.labelText)")
                             .onTapGesture {
@@ -43,12 +43,13 @@ struct DiscoverView: View {
                             .cornerRadius(25)
                     }
                     Spacer()
-                }.padding()
+                }
                 TabView(selection: $selectedTab) {
                     PostsToDiscoverView().tag(DiscoverViewTab.topPosts)
                     ProfilesToDiscoverView().tag(DiscoverViewTab.people)
                 }.tabViewStyle(.page(indexDisplayMode: .never))
             }
+            .padding()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Discover")
         }
