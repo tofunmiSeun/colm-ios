@@ -43,11 +43,7 @@ struct PostDetailsView: View {
                     
                     Text("Replies").font(.subheadline)
                     if replies.count > 0 {
-                        LazyVStack(alignment: .leading) {
-                            ForEach(replies) { post in
-                                PostListItem(post: post, onPostDeletion: getReplies)
-                            }
-                        }
+                        RowsOfPosts(posts: replies, onPostDeletion: fetchReplies)
                     }
                     
                 }.padding()
@@ -55,15 +51,15 @@ struct PostDetailsView: View {
             
             VStack {
                 Divider()
-                PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: getReplies)
+                PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: fetchReplies)
             }.padding()
         }
         .onAppear {
-            getReplies()
+            fetchReplies()
         }
     }
     
-    func getReplies() {
+    func fetchReplies() {
         let uri = "/post/\(post.id)/replies?profileId=\(loggedInUser.profileId)"
         Api.get(uri: uri) { data in
             if let response: [Post] = Api.Utils.decodeAsObject(data: data) {

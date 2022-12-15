@@ -15,9 +15,7 @@ struct HomeView: View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 ScrollView(showsIndicators: false) {
-                    ForEach(posts) { post in
-                        PostListItem(post: post, onPostDeletion: fetchPosts)
-                    }
+                    RowsOfPosts(posts: posts, onPostDeletion: fetchPosts)
                 }
                 .padding()
                 .refreshable {
