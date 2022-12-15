@@ -41,7 +41,9 @@ struct PostDetailsView: View {
                         }
                     }
                     
-                    Text("Replies").font(.subheadline)
+                    Text("Replies")
+                        .font(.headline)
+                        .padding(.top, 8)
                     if replies.count > 0 {
                         RowsOfPosts(posts: replies, onPostDeletion: fetchReplies)
                     }
