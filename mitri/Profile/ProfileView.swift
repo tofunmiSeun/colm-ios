@@ -16,7 +16,7 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 if let overview = profileOverview {
                     VStack(spacing: 16) {
                         ProfileOverviewSection(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
@@ -32,6 +32,10 @@ struct ProfileView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("\(profileOverview?.username ?? "")")
+            .refreshable {
+                fetchProfileOverview()
+                fetchPostsByProfile()
+            }
             .task {
                 fetchProfileOverview()
                 fetchPostsByProfile()
