@@ -42,7 +42,7 @@ struct HomeView: View {
     }
     
     func fetchPosts() {
-        Api.get(uri: "/post?profileId=\(loggedInUser.profileId)") { data in
+        Api.get(uri: "/post/feed?profileId=\(loggedInUser.profileId)") { data in
             DispatchQueue.main.async {
                 if let response: [Post] = Api.Utils.decodeAsObject(data: data) {
                     posts = response

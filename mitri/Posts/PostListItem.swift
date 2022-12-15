@@ -55,7 +55,6 @@ struct PostListItem: View {
                                 .foregroundColor(.red)
                         }
                     }
-                    
                 } label: {
                     Label("Actions", systemImage: "ellipsis")
                         .labelStyle(.iconOnly)
