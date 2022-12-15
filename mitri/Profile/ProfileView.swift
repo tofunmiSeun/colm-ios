@@ -19,7 +19,7 @@ struct ProfileView: View {
             ScrollView {
                 if let overview = profileOverview {
                     VStack(spacing: 16) {
-                        ProfileOverviewView(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
+                        ProfileOverviewSection(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
                         
                         Divider()
                         

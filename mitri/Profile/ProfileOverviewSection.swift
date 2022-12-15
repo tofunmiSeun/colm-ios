@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProfileOverviewView: View {
+struct ProfileOverviewSection: View {
     @EnvironmentObject var loggedInUser: UserProfile
     
     let profileOverview: ProfileOverview
@@ -72,9 +72,9 @@ struct ProfileOverviewView: View {
     
 }
 
-struct ProfileOverviewView_Previews: PreviewProvider {
+struct ProfileOverviewSection_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileOverviewView(profileOverview: ProfileOverview.mock, onFollowershipToggled: {return})
+        ProfileOverviewSection(profileOverview: ProfileOverview.mock, onFollowershipToggled: {return})
             .environmentObject(UserProfile.mockUser())
     }
 }
