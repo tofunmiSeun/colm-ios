@@ -45,9 +45,7 @@ struct PostReplyView: View {
                 } label: {
                     Text("Send")
                 }
-                .buttonStyle(.borderedProminent)
-                .cornerRadius(16)
-                .font(.subheadline)
+                .appButtonStyle()
                 .disabled(replyText.count == 0 && !mediaContentSelection.mediaContentsHaveBeenSelected())
             }
         }

@@ -12,6 +12,8 @@ struct PostListItem: View {
     @State var post: Post
     var onPostDeletion: () -> Void
     
+    @State private var profileIdTapped: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             
@@ -19,6 +21,9 @@ struct PostListItem: View {
                 
                 Text("\(post.authorUsername)")
                     .styleAsUsername()
+                    .onTapGesture {
+                        profileIdTapped = true
+                    }
                 
                 Spacer()
                 
@@ -66,6 +71,9 @@ struct PostListItem: View {
                         togglePostReaction()
                     }
             }.padding(.top, 10)
+        }.sheet(isPresented: $profileIdTapped) {
+            ProfileView(profileId: post.author)
+                .presentationDetents([.fraction(0.25), .large])
         }
     }
     

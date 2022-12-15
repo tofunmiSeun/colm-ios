@@ -49,12 +49,11 @@ struct CreatePostView: View {
                 } label: {
                     Text("Post")
                 }
+                .appButtonStyle()
                 .disabled(text.count == 0 && !mediaContentSelection.mediaContentsHaveBeenSelected())
-                .buttonStyle(.borderedProminent)
-                .cornerRadius(16)
             }
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
+                Button(role: .cancel) {
                     self.mode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark").foregroundColor(.primary)

@@ -118,7 +118,7 @@ struct Api {
         }
         
         if response.statusCode != 200 {
-            print("Invalid http response")
+            print("Invalid http response \(response.statusCode)")
             return
         }
         
