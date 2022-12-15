@@ -59,6 +59,7 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView(profileId: "mock_profile", profileOverview: ProfileOverview.mock).environmentObject(UserProfile.mockUser())
+        ProfileView(profileId: "mock_profile", profileOverview: ProfileOverview.mock)
+            .environmentObject(UserProfile.mockUser())
     }
 }
