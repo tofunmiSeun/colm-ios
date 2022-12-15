@@ -10,88 +10,47 @@ import SwiftUI
 struct ProfileView: View {
     @EnvironmentObject var loggedInUser: UserProfile
     let profileId: String
+    
     @State var profileOverview: ProfileOverview?
+    @State private var postsByProfile = [Post]()
     
     var body: some View {
-        VStack {
+        ScrollView {
             if let overview = profileOverview {
-                VStack(alignment: .leading) {
-                    HStack(spacing: 12) {
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 80)
-                        
-                        VStack(alignment: .leading) {
-                            Text("\(overview.username)")
-                                .font(.headline)
-                                .fontWeight(.semibold)
-                            
-                            if overview.name != nil {
-                                Text(overview.name!)
-                                    .font(.subheadline)
-                                    .fontWeight(.light)
-                            }
-                            
-                            if profileId != loggedInUser.profileId {
-                                Button {
-                                    Task {
-                                        await toggleUserFollowership()
-                                    }
-                                } label: {
-                                    Text(overview.requesterFollowsProfile ? "Unfollow": "Follow")
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .font(.caption2)
-                            }
-                            
+                VStack(spacing: 16) {
+                    ProfileOverviewView(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
+                    
+                    Divider()
+                    
+                    LazyVStack {
+                        ForEach(postsByProfile) { post in
+                            PostListItem(post: post, onPostDeletion: fetchPostsByProfile)
                         }
-                    }.frame(alignment: .leading)
-                    
-                    if overview.description != nil {
-                        Text(overview.description!)
-                            .fontWeight(.thin)
                     }
-                    
-                    
-                    HStack(spacing: 12) {
-                        ProfileStatView(label: "posts", value: "\(overview.postCount)")
-                        //ProfileStatView(label: "likes", value: "\(overview.likesCount)")
-                        ProfileStatView(label: "follows", value: "\(overview.followersCount)")
-                        ProfileStatView(label: "followed", value: "\(overview.followingCount)")
-                        Spacer()
-                    }
-                    
-                    Spacer()
                 }
+                .padding()
             }
-        }
-        .padding()
-        .task {
-            Task {
-                await fetchProfileOverview();
-            }
+        }.task {
+            fetchProfileOverview()
+            fetchPostsByProfile()
         }
     }
     
-    func toggleUserFollowership() async {
-        guard let overview = profileOverview else {
-            return
-        }
-        
-        var action = overview.requesterFollowsProfile ? "unfollow" : "follow"
-        Api.post(uri: "/profile/\(profileId)/\(action)?profileId=\(loggedInUser.profileId)") { data in
-            Task {
-                await fetchProfileOverview()
-            }
-        }
-    }
-    
-    func fetchProfileOverview() async {
+    func fetchProfileOverview() {
         Api.get(uri: "/profile/\(profileId)/overview?profileId=\(loggedInUser.profileId)") { data in
             DispatchQueue.main.async {
                 if let response: ProfileOverview = Api.Utils.decodeAsObject(data: data) {
                     profileOverview = response
+                }
+            }
+        }
+    }
+    
+    func fetchPostsByProfile() {
+        Api.get(uri: "/post/by-profile/\(profileId)?profileId=\(loggedInUser.profileId)") { data in
+            DispatchQueue.main.async {
+                if let response: [Post] = Api.Utils.decodeAsObject(data: data) {
+                    postsByProfile = response
                 }
             }
         }

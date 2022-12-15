@@ -35,9 +35,18 @@ extension TabView {
     func styleAsMediaContentCarousel() -> some View {
         self
             .tabViewStyle(.page(indexDisplayMode: .always))
-            .frame(height: 250)
+            .frame(height: 150)
             .background(.gray)
             .background(.ultraThinMaterial)
             .cornerRadius(4)
+    }
+}
+
+extension Button {
+    func appButtonStyle() -> some View {
+        self
+            .buttonStyle(.borderedProminent)
+            .cornerRadius(30)
+            .font(.subheadline)
     }
 }

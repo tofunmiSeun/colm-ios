@@ -16,18 +16,14 @@ struct HomeView: View {
             ZStack(alignment: .bottom) {
                 List {
                     ForEach(posts) { post in
-                        ZStack {
-                            NavigationLink(destination: PostDetailsView(post: post)) {
-                                EmptyView()
-                            }.opacity(0.0)
-                            PostListItem(post: post, onPostDeletion: fetchPosts)
-                        }
+                        PostListItem(post: post, onPostDeletion: fetchPosts)
                     }
                 }
                 .listStyle(.plain)
                 .refreshable {
                     fetchPosts()
                 }
+                
                 NavigationLink(destination: CreatePostView()) {
                     Image(systemName: "plus.circle.fill")
                         .resizable()

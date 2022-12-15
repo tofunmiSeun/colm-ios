@@ -41,9 +41,8 @@ struct PostDetailsView: View {
                         }
                     }
                     
-                    
+                    Text("Replies").font(.subheadline)
                     if replies.count > 0 {
-                        Text("Replies").font(.subheadline)
                         LazyVStack(alignment: .leading) {
                             ForEach(replies) { post in
                                 PostListItem(post: post, onPostDeletion: getReplies)
@@ -53,6 +52,7 @@ struct PostDetailsView: View {
                     
                 }.padding()
             }
+            
             VStack {
                 Divider()
                 PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: getReplies)
