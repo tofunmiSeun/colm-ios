@@ -18,6 +18,10 @@ struct LoggedInUserView: View {
             .tabItem {
                 Label("Discover", systemImage: "magnifyingglass")
             }
+            NotificationsView()
+            .tabItem {
+                Label("Notifications", systemImage: "bell")
+            }
             ProfileView(profileId: UserProfile.currentLoggedInUser().profileId)
             .tabItem {
                 Label("Profile", systemImage: "person.circle")
