@@ -21,13 +21,16 @@ struct Post: Identifiable, Codable {
     var authorUsername: String;
     var authorName: String?;
     var likedByProfile: Bool;
+    var createdAtMilliseconds: Int?;
     
     
     static var mock = Post(id: "id_qww", author: "auth_dd", content: "Mitri, not just another bird app",
-                           authorUsername: "tofunmi",  authorName: "Oluwaseun", likedByProfile: true)
+                           authorUsername: "tofunmi",  authorName: "Oluwaseun", likedByProfile: true,
+                           createdAtMilliseconds: 1671065342710)
     
     static var mockWithMediaContent = Post(id: "id_qww", author: "auth_dd", content: "Mitri, not just another bird app",
                                            mediaContents: MediaContent.mocks,
-                                           authorUsername: "tofunmi", authorName: "Oluwaseun", likedByProfile: true)
+                                           authorUsername: "tofunmi", authorName: "Oluwaseun", likedByProfile: true,
+                                           createdAtMilliseconds: 1671065342710)
     
 }
