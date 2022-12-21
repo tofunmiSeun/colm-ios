@@ -44,12 +44,12 @@ struct DiscoverView: View {
                     }
                     Spacer()
                 }
+                .padding(.horizontal, 16)
                 TabView(selection: $selectedTab) {
                     PostsToDiscoverView().tag(DiscoverViewTab.topPosts)
                     ProfilesToDiscoverView().tag(DiscoverViewTab.people)
                 }.tabViewStyle(.page(indexDisplayMode: .never))
             }
-            .padding()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Discover")
         }

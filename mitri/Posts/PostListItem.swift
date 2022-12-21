@@ -14,12 +14,6 @@ extension RelativeDateTimeFormatter {
     }
 }
 
-extension Date {
-    init(milliseconds:Int) {
-        self = Date(timeIntervalSince1970: TimeInterval(milliseconds / 1000))
-    }
-}
-
 struct PostListItem: View {
     @EnvironmentObject var loggedInUser: UserProfile
     @State var post: Post
@@ -92,12 +86,7 @@ struct PostListItem: View {
             Spacer()
             
             if let postedAtMillis = post.createdAtMilliseconds {
-                let postedAtDate = Date(milliseconds: postedAtMillis)
-                TimelineView(.animation(minimumInterval: 5)) { timeline in
-                    let formatted = formatter.localizedString(for: postedAtDate, relativeTo: timeline.date)
-                    Text("\(formatted)")
-                        .fontWeight(.ultraLight)
-                }
+                ElapsedTimeView(elapsedTimeMilliseconds: postedAtMillis)
             }
         }
         .padding(.horizontal, 16)

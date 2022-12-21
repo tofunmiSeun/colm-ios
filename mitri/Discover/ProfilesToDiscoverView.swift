@@ -45,6 +45,7 @@ struct ProfilesToDiscoverView: View {
                     .buttonStyle(.plain)
                 }
             }
+            .padding()
         }
         .refreshable {
             fetchProfiles()
