@@ -19,10 +19,6 @@ struct PostDetailsView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("\(post.authorUsername)")
-                        .styleAsUsername()
-                        .font(.title)
-                    
                     if let postText = post.content {
                         Text("\(postText)")
                             .styleAsPostText()
@@ -41,11 +37,12 @@ struct PostDetailsView: View {
                         }
                     }
                     
-                    Text("Replies")
-                        .font(.headline)
-                        .padding(.top, 8)
                     if replies.count > 0 {
+                        Text("Replies")
+                            .font(.title)
+                            .padding(.vertical, 8)
                         RowsOfPosts(posts: replies, onPostDeletion: fetchReplies)
+                            .padding(.horizontal, -16)
                     }
                     
                 }.padding()
@@ -56,6 +53,7 @@ struct PostDetailsView: View {
                 PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: fetchReplies)
             }.padding()
         }
+        .navigationTitle(post.authorUsername)
         .onAppear {
             fetchReplies()
         }
