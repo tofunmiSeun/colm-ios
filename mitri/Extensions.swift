@@ -38,7 +38,6 @@ extension TabView {
             .frame(height: 200)
             .background(.gray)
             .background(.ultraThinMaterial)
-            .cornerRadius(4)
     }
 }
 

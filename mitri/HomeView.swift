@@ -17,7 +17,6 @@ struct HomeView: View {
                 ScrollView(showsIndicators: false) {
                     RowsOfPosts(posts: posts, onPostDeletion: fetchPosts)
                 }
-                .padding()
                 .refreshable {
                     fetchPosts()
                 }

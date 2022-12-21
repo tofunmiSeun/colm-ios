@@ -17,6 +17,7 @@ struct PostListItem: View {
             if let postText = post.content {
                 Text("\(postText)")
                     .styleAsPostText()
+                    .padding(.horizontal, 16)
             }
             
             if let mediaContents = post.mediaContents {
@@ -28,6 +29,7 @@ struct PostListItem: View {
                             }
                         }
                         .styleAsMediaContentCarousel()
+                        .padding(.horizontal, 16)
                     }
                 }
             }
@@ -61,6 +63,7 @@ struct PostListItem: View {
                         .foregroundColor(.gray)
                 }
             }
+            .padding(.horizontal, 16)
             
             NavigationLink {
                 PostDetailsView(post: post)
@@ -74,10 +77,11 @@ struct PostListItem: View {
                     .onTapGesture {
                         togglePostReaction()
                     }
-            }.padding(.top, 10)
+            }
+            .padding(.horizontal, 16)
             
-            Divider().padding(.bottom, 16)
-        }
+            Divider()
+        }.padding(.bottom, 8)
     }
     
     func deletePost() {

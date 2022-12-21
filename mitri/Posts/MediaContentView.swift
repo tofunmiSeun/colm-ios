@@ -20,7 +20,6 @@ struct MediaContentView: View {
                     .scaledToFill()
                     .border(Color(white: 0.75))
                     .clipped()
-                    .cornerRadius(4)
             }
         }.task {
             await loadMediaDataContent()

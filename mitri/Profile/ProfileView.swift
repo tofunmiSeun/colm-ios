@@ -21,10 +21,10 @@ struct ProfileView: View {
                 if let overview = profileOverview {
                     VStack(spacing: 16) {
                         ProfileOverviewSection(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
+                            .padding()
                         Divider()
                         RowsOfPosts(posts: postsByProfile, onPostDeletion: fetchPostsByProfile)
                     }
-                    .padding()
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
