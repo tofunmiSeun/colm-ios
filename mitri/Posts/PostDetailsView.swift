@@ -48,10 +48,10 @@ struct PostDetailsView: View {
                 }.padding()
             }
             
-            VStack {
-                Divider()
-                PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: fetchReplies)
-            }.padding()
+            PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: fetchReplies)
+                .padding()
+                .cornerRadius(4)
+                .background(.gray.opacity(0.1))
         }
         .navigationTitle(post.authorUsername)
         .onAppear {
