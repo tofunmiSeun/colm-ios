@@ -6,8 +6,11 @@ struct Profile: Identifiable, Codable {
     var name: String?;
     var description: String?;
     
-    static var mock = Profile(id: "aaa_yyy", username: "tofunmi_og",
+    static var mock = Profile(id: "profile123", username: "tofunmi_og",
                               name: "Tofunmi", description: "Founder @mitri")
+    
+    static var mock_2 = Profile(id: "profile_xts", username: "bot_man",
+                              name: "Botty", description: "Bot that yaps")
 }
 
 struct ProfilesToDiscoverView: View {

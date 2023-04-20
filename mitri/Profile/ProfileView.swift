@@ -1,6 +1,3 @@
-//
-//  ProfileView.swift
-//  mitri
 import SwiftUI
 
 struct ProfileView: View {
