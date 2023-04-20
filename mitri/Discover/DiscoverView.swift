@@ -1,10 +1,3 @@
-//
-//  DiscoverView.swift
-//  mitri
-//
-//  Created by Tofunmi Ogungbaigbe on 05/12/2022.
-//
-
 import SwiftUI
 
 struct DiscoverView: View {

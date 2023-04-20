@@ -1,30 +1,29 @@
-//
-//  LoggedInUserView.swift
-//  mitri
-//
-//  Created by Tofunmi Ogungbaigbe on 30/11/2022.
-//
-
 import SwiftUI
 
 struct LoggedInUserView: View {
     var body: some View {
-        TabView {
-            HomeView()
-            .tabItem {
-                Label("Home", systemImage: "house.fill")
-            }
-            DiscoverView()
-            .tabItem {
-                Label("Discover", systemImage: "magnifyingglass")
-            }
-            NotificationsView()
-            .tabItem {
-                Label("Notifications", systemImage: "bell")
-            }
-            ProfileView(profileId: UserProfile.currentLoggedInUser().profileId)
-            .tabItem {
-                Label("Profile", systemImage: "person.circle")
+        NavigationStack {
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house.fill")
+                    }
+                DiscoverView()
+                    .tabItem {
+                        Label("Discover", systemImage: "magnifyingglass")
+                    }
+                NotificationsView()
+                    .tabItem {
+                        Label("Notifications", systemImage: "bell")
+                    }
+                ChatsView()
+                    .tabItem {
+                        Label("Chats", systemImage: "message")
+                    }
+                ProfileView(profileId: UserProfile.currentLoggedInUser().profileId)
+                    .tabItem {
+                        Label("Profile", systemImage: "person")
+                    }
             }
         }
         .environmentObject(UserProfile.currentLoggedInUser())

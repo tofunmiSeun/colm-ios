@@ -1,10 +1,6 @@
 //
 //  ProfileView.swift
 //  mitri
-//
-//  Created by Tofunmi Ogungbaigbe on 15/12/2022.
-//
-
 import SwiftUI
 
 struct ProfileView: View {

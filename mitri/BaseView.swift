@@ -1,13 +1,4 @@
-//
-//  BaseView.swift
-//  mitri
-//
-//  Created by Tofunmi Ogungbaigbe on 29/11/2022.
-//
-
 import SwiftUI
-
-
 
 struct BaseView: View {
     @State private var initialisingPage: Bool = true
@@ -30,7 +21,7 @@ struct BaseView: View {
         }
         .environmentObject(loggedInUserState)
         .task {
-            withAnimation(.linear(duration: 2)) {
+            withAnimation(.linear(duration: 1)) {
                 initialisingPage = false
             }
         }
