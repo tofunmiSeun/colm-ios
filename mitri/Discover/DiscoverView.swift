@@ -19,7 +19,7 @@ struct DiscoverView: View {
     private var tabs: [DiscoverViewTab] = [.topPosts, .people]
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack(spacing: 16) {
                 HStack(spacing: 4) {
                     ForEach(tabs, id: \.self) { tab in

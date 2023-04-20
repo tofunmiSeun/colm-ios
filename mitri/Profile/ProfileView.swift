@@ -9,7 +9,7 @@ struct ProfileView: View {
     @State private var postsByProfile = [Post]()
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView(showsIndicators: false) {
                 if let overview = profileOverview {
                     VStack(spacing: 16) {

@@ -5,7 +5,7 @@ struct NotificationsView: View {
     @State private var notifications = [Notification]()
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView(showsIndicators: false) {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(notifications) { notification in

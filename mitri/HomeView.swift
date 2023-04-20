@@ -5,7 +5,7 @@ struct HomeView: View {
     @State private var posts: [Post] = [Post.mock]
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ZStack(alignment: .bottom) {
                 ScrollView(showsIndicators: false) {
                     RowsOfPosts(posts: posts, onPostDeletion: fetchPosts)
