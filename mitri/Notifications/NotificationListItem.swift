@@ -23,11 +23,14 @@ struct NotificationListItem: View {
             Text(getDescription(for: notification))
             Spacer()
             ElapsedTimeView(elapsedTimeMilliseconds: notification.happenedOnMilliseconds)
+                .font(.footnote)
         }
         .padding()
         .background(.blue.opacity(notification.recipientHasBeenNotified ? 0 : 0.15))
         .onAppear {
-            markNotificationAsRead()
+            if !notification.recipientHasBeenNotified {
+                markNotificationAsRead()
+            }
         }
     }
     
@@ -43,10 +46,6 @@ struct NotificationListItem: View {
     }
     
     func markNotificationAsRead() {
-        if notification.recipientHasBeenNotified {
-            return
-        }
-        
         let uri = "/notification/\(notification.id)/mark-as-read?profileId=\(loggedInUser.profileId)"
         Api.post(uri: uri) { _ in
             DispatchQueue.main.async {

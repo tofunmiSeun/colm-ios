@@ -93,19 +93,19 @@ struct PostListItem: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            headerLayout
-            
-            NavigationLink {
-                PostDetailsView(post: post)
-            } label: {
+        NavigationLink {
+            PostDetailsView(post: post)
+        } label: {
+            VStack(alignment: .leading, spacing: 16) {
+                headerLayout
                 mainSectionLayout
-            }.buttonStyle(.plain)
-            
-            footerLayout
-            
-            Divider()
-        }.padding(.bottom, 8)
+                footerLayout
+                Divider()
+            }
+            .padding(.bottom, 8)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
     
     func deletePost() {

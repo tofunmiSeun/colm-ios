@@ -9,44 +9,43 @@ struct ProfileView: View {
     @State private var postsByProfile = [Post]()
     
     var body: some View {
-        NavigationView {
-            ScrollView(showsIndicators: false) {
-                if let overview = profileOverview {
-                    VStack(spacing: 16) {
-                        ProfileOverviewSection(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
-                            .padding()
-                        Divider()
-                        RowsOfPosts(posts: postsByProfile, onPostDeletion: fetchPostsByProfile)
-                    }
+        ScrollView(showsIndicators: false) {
+            if let overview = profileOverview {
+                VStack(spacing: 16) {
+                    ProfileOverviewSection(profileOverview: overview, onFollowershipToggled: fetchProfileOverview)
+                        .padding()
+                    Divider()
+                    RowsOfPosts(posts: postsByProfile, onPostDeletion: fetchPostsByProfile)
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("\(profileOverview?.username ?? "")")
-            .refreshable {
-                fetchProfileOverview()
-                fetchPostsByProfile()
-            }
-            .task {
-                fetchProfileOverview()
-                fetchPostsByProfile()
-            }.toolbar {
-                if profileOverview?.id ?? "" == loggedInUser.profileId {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Menu {
-                            Button(role: .destructive) {
-                                logUserout()
-                            } label: {
-                                Text("Logout")
-                            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("\(profileOverview?.username ?? "")")
+        .refreshable {
+            fetchProfileOverview()
+            fetchPostsByProfile()
+        }
+        .task {
+            fetchProfileOverview()
+            fetchPostsByProfile()
+        }.toolbar {
+            if profileOverview?.id ?? "" == loggedInUser.profileId {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button(role: .destructive) {
+                            logUserout()
                         } label: {
-                            Label("Actions", systemImage: "ellipsis")
-                                .labelStyle(.iconOnly)
-                                .foregroundColor(.primary)
+                            Text("Logout")
                         }
+                    } label: {
+                        Label("Actions", systemImage: "ellipsis")
+                            .labelStyle(.iconOnly)
+                            .foregroundColor(.primary)
                     }
                 }
             }
         }
+        
     }
     
     func fetchProfileOverview() {

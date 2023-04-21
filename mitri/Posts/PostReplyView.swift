@@ -19,18 +19,6 @@ struct PostReplyView: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                TextField(text: $replyText, prompt: Text("Reply post").promptText()) {
-                    Text("Text")
-                }
-                .autocorrectionDisabled()
-            }
-            
-            if mediaContentSelection.mediaContentsHaveBeenSelected() {
-                ImagesToUploadCarousel(selectedPhotoPickerItems: $mediaContentSelection.selectedPhotoPickerItems ,
-                                       selectedImagesData: $mediaContentSelection.selectedImagesData)
-            }
-            
-            HStack {
                 UploadMediaContentMenu(selectedPhotoPickerItems: $mediaContentSelection.selectedPhotoPickerItems)
                     .onReceive(mediaContentSelection.$selectedPhotoPickerItems) { newValue in
                         Task {
@@ -38,7 +26,10 @@ struct PostReplyView: View {
                         }
                     }
                 
-                Spacer()
+                TextField(text: $replyText) {
+                    Text("Reply post")
+                }
+                .appTextFieldStyle()
                 
                 Button {
                     replyToPost()
@@ -47,6 +38,11 @@ struct PostReplyView: View {
                 }
                 .appButtonStyle()
                 .disabled(replyText.count == 0 && !mediaContentSelection.mediaContentsHaveBeenSelected())
+            }
+            
+            if mediaContentSelection.mediaContentsHaveBeenSelected() {
+                ImagesToUploadCarousel(selectedPhotoPickerItems: $mediaContentSelection.selectedPhotoPickerItems ,
+                                       selectedImagesData: $mediaContentSelection.selectedImagesData)
             }
         }
     }

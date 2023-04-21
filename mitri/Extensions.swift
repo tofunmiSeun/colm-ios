@@ -49,3 +49,13 @@ extension Button {
             .font(.subheadline)
     }
 }
+
+extension TextField {
+    func appTextFieldStyle() -> some View {
+        self
+            .padding(8)
+            .background(.ultraThinMaterial)
+            .cornerRadius(16)
+            .autocorrectionDisabled()
+    }
+}

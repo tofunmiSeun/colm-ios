@@ -37,11 +37,8 @@ struct ChatMessagesView: View {
                     TextField(text: $newChatMessage) {
                         Text("Say something...")
                     }
+                    .appTextFieldStyle()
                     .focused($focusOnTextField)
-                    .padding(8)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(16)
-                    .autocorrectionDisabled()
                     
                     Button {
                         if chat.id != Chat.templateId {

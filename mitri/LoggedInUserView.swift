@@ -22,10 +22,12 @@ struct LoggedInUserView: View {
                     .tabItem {
                         Label("Chats", systemImage: "message")
                     }
-                ProfileView(profileId: UserProfile.currentLoggedInUser().profileId)
-                    .tabItem {
-                        Label("Profile", systemImage: "person")
-                    }
+                NavigationView {
+                    ProfileView(profileId: UserProfile.currentLoggedInUser().profileId)
+                }
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
             }
         }
         .environmentObject(UserProfile.currentLoggedInUser())
