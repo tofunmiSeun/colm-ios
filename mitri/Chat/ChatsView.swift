@@ -40,6 +40,7 @@ struct ChatsView: View {
             }
             .navigationDestination(for: Chat.self) { c in
                 ChatMessagesView(chat: c)
+                ChatMessagesView(navPath: $navPath, chat: c)
             }
             .sheet(isPresented: $showStartChatView) {
                 StartChatView(onProfilesSelected: { otherParticipants in

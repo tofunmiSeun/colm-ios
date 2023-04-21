@@ -2,9 +2,11 @@ import SwiftUI
 
 struct ChatMessagesView: View {
     @EnvironmentObject var loggedInUser: UserProfile
-    @State var chat: Chat
+    @Binding var navPath: NavigationPath
     
+    @State var chat: Chat
     @State var chatMessages = [ChatMessage]()
+    
     @State private var newChatMessage = ""
     
     var body: some View {
@@ -56,6 +58,23 @@ struct ChatMessagesView: View {
                 loadChatMessages()
             }
         }
+        .toolbar {
+            if chat.id != Chat.templateId {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        Button(role: .destructive) {
+                            leaveChat()
+                        } label: {
+                            Text("Leave chat")
+                        }
+                    } label: {
+                        Label("Actions", systemImage: "ellipsis")
+                            .labelStyle(.iconOnly)
+                            .foregroundColor(.primary)
+                    }
+                }
+            }
+        }
     }
     
     func loadChatMessages() {
@@ -92,12 +111,20 @@ struct ChatMessagesView: View {
             }
         }
     }
+    
+    func leaveChat() {
+        Api.delete(uri: "/chat/\(chat.id)/leave?profileId=\(loggedInUser.profileId)") { data in
+            DispatchQueue.main.async {
+                navPath.removeLast()
+            }
+        }
+    }
 }
 
 struct ChatMessagesView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ChatMessagesView(chat: Chat.mock, chatMessages: [ChatMessage.mock])
+            ChatMessagesView(navPath: Binding.constant(NavigationPath()), chat: Chat.mock, chatMessages: [ChatMessage.mock])
                 .environmentObject(UserProfile.mockUser())
                 .navigationBarTitleDisplayMode(.inline)
         }
