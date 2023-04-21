@@ -8,6 +8,7 @@ struct ChatMessagesView: View {
     @State var chatMessages = [ChatMessage]()
     
     @State private var newChatMessage = ""
+    @FocusState private var focusOnTextField: Bool
     
     var body: some View {
         VStack {
@@ -27,16 +28,21 @@ struct ChatMessagesView: View {
                     }
                 }
             }
+            .onTapGesture {
+                hideKeyboard()
+            }
             Divider()
             ZStack {
                 HStack {
-                    TextField( text: $newChatMessage) {
+                    TextField(text: $newChatMessage) {
                         Text("Say something...")
                     }
+                    .focused($focusOnTextField)
                     .padding(8)
                     .background(.ultraThinMaterial)
                     .cornerRadius(16)
                     .autocorrectionDisabled()
+                    
                     Button {
                         if chat.id != Chat.templateId {
                             sendMessage()
@@ -118,6 +124,10 @@ struct ChatMessagesView: View {
                 navPath.removeLast()
             }
         }
+    }
+    
+    func hideKeyboard() {
+        focusOnTextField = false
     }
 }
 
