@@ -25,8 +25,7 @@ struct NotificationListItem: View {
             ElapsedTimeView(elapsedTimeMilliseconds: notification.happenedOnMilliseconds)
         }
         .padding()
-        .background(notification.recipientHasBeenNotified ?
-            .white : .blue.opacity(0.1))
+        .background(.blue.opacity(notification.recipientHasBeenNotified ? 0 : 0.15))
         .onAppear {
             markNotificationAsRead()
         }
