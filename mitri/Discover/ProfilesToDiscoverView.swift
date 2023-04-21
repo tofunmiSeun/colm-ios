@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Profile: Identifiable, Codable {
+struct Profile: Identifiable, Codable, Hashable {
     var id: String;
     var username: String;
     var name: String?;
@@ -24,19 +24,7 @@ struct ProfilesToDiscoverView: View {
                     NavigationLink {
                         ProfileView(profileId: profile.id)
                     } label: {
-                        HStack(spacing: 12) {
-                            Image(systemName: "person.crop.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40)
-                            
-                            VStack {
-                                Text(profile.username).styleAsUsername()
-                                if let name = profile.name {
-                                    Text(name)
-                                }
-                            }
-                        }
+                        ProfileListItem(username: profile.username, name: profile.name)
                     }
                     .buttonStyle(.plain)
                 }

@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct LoggedInUserView: View {
+    @State private var navPath = NavigationPath()
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navPath) {
             TabView {
                 HomeView()
                     .tabItem {
@@ -16,7 +18,7 @@ struct LoggedInUserView: View {
                     .tabItem {
                         Label("Notifications", systemImage: "bell")
                     }
-                ChatsView()
+                ChatsView(navPath: $navPath)
                     .tabItem {
                         Label("Chats", systemImage: "message")
                     }
