@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ChatListItem: View {
     @EnvironmentObject var loggedInUser: UserProfile
-    @State var chat: Chat
+    var chat: Chat
     
     var body: some View {
         HStack(alignment: .top) {
