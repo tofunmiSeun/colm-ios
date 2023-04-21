@@ -14,13 +14,15 @@ struct ChatMessagesView: View {
                     LazyVStack(alignment: .leading, spacing: 0) {
                         ForEach(chatMessages.reversed()) { message in
                             ChatMessageRow(chatMessage: message)
+                                .id(message.id)
                         }
                     }
                     .padding()
                 }
-                .id("ChatScrollView")
                 .onChange(of: chatMessages) { _ in
-                    scrollView.scrollTo("ChatScrollView")
+                    if chatMessages.count > 0 {
+                        scrollView.scrollTo(chatMessages.first!.id)
+                    }
                 }
             }
             Divider()
