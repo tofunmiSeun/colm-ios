@@ -9,6 +9,7 @@ extension Array where Element: Comparable {
 struct ChatsView: View {
     @EnvironmentObject var loggedInUser: UserProfile
     @Binding var navPath: NavigationPath
+    private let webSocketManager = WebSocketManager(uri: "/chat-update?profileId=\(UserProfile.currentLoggedInUser().profileId)")
     
     @State private var chats = [Chat]()
     @State private var showStartChatView = false
@@ -26,6 +27,7 @@ struct ChatsView: View {
             }
             .onAppear {
                 loadChats()
+                webSocketManager.setCallBack(loadChats)
             }
             .navigationTitle("Chats")
             .navigationBarTitleDisplayMode(.inline)
@@ -39,7 +41,7 @@ struct ChatsView: View {
                 }
             }
             .navigationDestination(for: Chat.self) { c in
-                ChatMessagesView(navPath: $navPath, chat: c)
+                ChatMessagesView(navPath: $navPath, webSocketManager: webSocketManager, chat: c)
             }
             .sheet(isPresented: $showStartChatView) {
                 StartChatView(onProfilesSelected: { otherParticipants in

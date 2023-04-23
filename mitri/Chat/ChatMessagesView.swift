@@ -3,6 +3,7 @@ import SwiftUI
 struct ChatMessagesView: View {
     @EnvironmentObject var loggedInUser: UserProfile
     @Binding var navPath: NavigationPath
+    let webSocketManager: WebSocketManager
     
     @State var chat: Chat
     @State var chatMessages = [ChatMessage]()
@@ -59,6 +60,7 @@ struct ChatMessagesView: View {
         .onAppear {
             if chat.id != Chat.templateId {
                 loadChatMessages()
+                webSocketManager.setCallBack(loadChatMessages)
             }
         }
         .toolbar {
@@ -131,9 +133,11 @@ struct ChatMessagesView: View {
 struct ChatMessagesView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            ChatMessagesView(navPath: Binding.constant(NavigationPath()), chat: Chat.mock, chatMessages: [ChatMessage.mock])
-                .environmentObject(UserProfile.mockUser())
-                .navigationBarTitleDisplayMode(.inline)
+            ChatMessagesView(navPath: Binding.constant(NavigationPath()),
+                             webSocketManager: WebSocketManager(uri: "ws://hello.com"),
+                             chat: Chat.mock, chatMessages: [ChatMessage.mock])
+            .environmentObject(UserProfile.mockUser())
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
