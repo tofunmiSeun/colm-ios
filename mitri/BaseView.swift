@@ -21,7 +21,7 @@ struct BaseView: View {
         }
         .environmentObject(loggedInUserState)
         .task {
-            withAnimation(.linear(duration: 1)) {
+            withAnimation(.linear(duration: 0.5)) {
                 initialisingPage = false
             }
         }
