@@ -6,23 +6,41 @@
 //
 
 import SwiftUI
-import GoogleSignInSwift
 
 struct LoginView: View {
     @EnvironmentObject var loggedInUserState: LoggedInUserState
     
     var body: some View {
         VStack {
-            VStack {
+            VStack(spacing: 4) {
                 Text("Mitri")
-                    .font(.title)
+                    .font(.largeTitle)
+                    .fontWeight(.heavy)
                 Text("Not just another bird app")
-                    .font(.subheadline)
-            }.padding(.top, 100)
+                    .font(.title)
+            }.padding(.top, UIScreen.main.bounds.midY / 4)
             Spacer()
             VStack {
-                GoogleSignInButton(action: onGoogleSignInButtonClicked)
-            }.padding(.bottom, 100)
+                Button {
+                    onGoogleSignInButtonClicked()
+                } label: {
+                    Label {
+                        Text("Continue with Google")
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                    } icon: {
+                        Image("GoogleLogo")
+                            .resizable()
+                            .frame(width: 32.0, height: 32.0)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: .infinity)
+                        .stroke(.black))
+                    .background(.white)
+                    .cornerRadius(.infinity)
+                }
+            }.padding(.bottom, 10)
         }.padding()
     }
     
@@ -48,3 +66,4 @@ struct LoginView_Previews: PreviewProvider {
             .environmentObject(LoggedInUserState())
     }
 }
+

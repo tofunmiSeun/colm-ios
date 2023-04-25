@@ -8,25 +8,30 @@ struct LoggedInUserView: View {
             TabView {
                 HomeView()
                     .tabItem {
-                        Label("Home", systemImage: "house.fill")
+                        Label("Home", systemImage: "house")
+                            .labelStyle(.iconOnly)
                     }
                 DiscoverView()
                     .tabItem {
                         Label("Discover", systemImage: "magnifyingglass")
+                            .labelStyle(.iconOnly)
                     }
                 NotificationsView()
                     .tabItem {
                         Label("Notifications", systemImage: "bell")
+                            .labelStyle(.iconOnly)
                     }
                 ChatsView(navPath: $navPath)
                     .tabItem {
                         Label("Chats", systemImage: "message")
+                            .labelStyle(.iconOnly)
                     }
                 NavigationView {
                     ProfileView(profileId: UserProfile.currentLoggedInUser().profileId)
                 }
                 .tabItem {
                     Label("Profile", systemImage: "person")
+                        .labelStyle(.iconOnly)
                 }
             }
         }
