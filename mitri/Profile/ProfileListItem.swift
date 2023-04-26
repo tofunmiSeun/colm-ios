@@ -18,7 +18,7 @@ struct ProfileListItem: View {
                 .foregroundColor(.gray.opacity(0.8))
                 .scaledToFit()
                 .frame(width: 40)
-            VStack {
+            VStack(alignment: .leading) {
                 Text(username).styleAsUsername()
                 if let providedName = name {
                     Text(providedName)
