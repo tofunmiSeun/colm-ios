@@ -73,22 +73,6 @@ struct PostListItem: View {
         }
     }
     
-    private var footerLayout: some View {
-        HStack(spacing: 12) {
-            Image(systemName: post.likedByProfile ? "heart.fill" : "heart")
-                .foregroundColor(post.likedByProfile ? .red : .gray)
-                .onTapGesture {
-                    togglePostReaction()
-                }
-            
-            Spacer()
-            
-            if let postedAtMillis = post.createdAtMilliseconds {
-                ElapsedTimeView(elapsedTimeMilliseconds: postedAtMillis).font(.footnote)
-            }
-        }
-    }
-    
     var body: some View {
         NavigationLink {
             PostDetailsView(post: post)
@@ -96,7 +80,7 @@ struct PostListItem: View {
             VStack(alignment: .leading, spacing: 16) {
                 headerLayout
                 mainSectionLayout
-                footerLayout
+                PostFooterView(post: post)
                 Divider()
             }
             .padding(.bottom, 8)
@@ -111,15 +95,6 @@ struct PostListItem: View {
         Api.delete(uri: uri) { data in
             DispatchQueue.main.async {
                 onPostDeletion()
-            }
-        }
-    }
-    
-    func togglePostReaction() {
-        let uri = post.likedByProfile ? "/post/\(post.id)/like/remove" : "/post/\(post.id)/like"
-        Api.post(uri: "\(uri)?profileId=\(loggedInUser.profileId)") { data in
-            DispatchQueue.main.async {
-                post.likedByProfile.toggle()
             }
         }
     }

@@ -19,39 +19,56 @@ struct PostDetailsView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
-                    if let postText = post.content {
-                        Text("\(postText)")
-                            .styleAsPostText()
-                    }
-                    
-                    if let mediaContents = post.mediaContents {
-                        if mediaContents.count > 0 {
-                            VStack {
-                                TabView {
-                                    ForEach(mediaContents) { content in
-                                        MediaContentView(mediaContent: content)
-                                    }
-                                }
-                                .styleAsMediaContentCarousel()
-                            }.padding(.vertical, 16)
+                    VStack(alignment: .leading) {
+                        if let postText = post.content {
+                            Text("\(postText)")
+                                .styleAsPostText()
                         }
-                    }
+                        
+                        if let mediaContents = post.mediaContents {
+                            if mediaContents.count > 0 {
+                                VStack {
+                                    TabView {
+                                        ForEach(mediaContents) { content in
+                                            MediaContentView(mediaContent: content)
+                                        }
+                                    }
+                                    .styleAsMediaContentCarousel()
+                                }.padding(.vertical, 16)
+                            }
+                        }
+                        
+                        PostFooterView(post: post).padding(.top, 8)
+                    
+                    }.padding(8)
+                    
+                    Divider().padding(.top, 4).padding(.bottom, 8)
                     
                     if replies.count > 0 {
-                        Text("Replies")
-                            .font(.title)
-                            .padding(.vertical, 8)
+                        HStack {
+                            Text("Replies")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(8)
+                            Spacer()
+                        }
+                        .overlay(alignment: .bottom) {
+                            Divider().padding(.horizontal, 8)
+                        }
                         RowsOfPosts(posts: replies, onPostDeletion: fetchReplies)
-                            .padding(.horizontal, -16)
+                            .padding(.top, 8)
                     }
                     
-                }.padding()
+                }
             }
             
             PostReplyView(postId: post.id, profileId: loggedInUser.profileId, refreshReplies: fetchReplies)
                 .padding()
                 .cornerRadius(4)
                 .background(.gray.opacity(0.1))
+        }
+        .refreshable {
+            fetchReplies()
         }
         .navigationTitle(post.authorUsername)
         .onAppear {
