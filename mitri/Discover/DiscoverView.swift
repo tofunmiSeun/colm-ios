@@ -1,64 +1,67 @@
 import SwiftUI
 
 struct DiscoverView: View {
-    enum DiscoverViewTab: String {
-        case topPosts;
-        case people;
-        
-        var labelText: String {
-            switch self {
-            case .topPosts:
-                return "Top posts"
-            case .people:
-                return "People"
-            }
-        }
-    }
+    @EnvironmentObject var loggedInUser: UserProfile
+    @State var posts = [Post]()
+    @State var profiles = [Profile]()
     
-    @State private var selectedTab: DiscoverViewTab = .topPosts
-    private var tabs: [DiscoverViewTab] = [.topPosts, .people]
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 16) {
-                HStack(spacing: 4) {
-                    ForEach(tabs, id: \.self) { tab in
-                        Text("\(tab.labelText)")
-                            .onTapGesture {
-                                selectedTab = tab
-                            }
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .foregroundColor(textColorForTabLabel(tab))
-                            .background(.gray.opacity(backgrounOpacityForTabLabel(tab)))
-                            .cornerRadius(25)
+            ScrollView {
+                Section(header: Text("Follows")) {
+                    ForEach(profiles) { profile in
+                        NavigationLink {
+                            ProfileView(profileId: profile.id)
+                        } label: {
+                            ProfileListItem(username: profile.username, name: profile.name)
+                        }
+                        .buttonStyle(.plain)
                     }
-                    Spacer()
                 }
-                .padding(.horizontal, 16)
-                TabView(selection: $selectedTab) {
-                    PostsToDiscoverView().tag(DiscoverViewTab.topPosts)
-                    ProfilesToDiscoverView().tag(DiscoverViewTab.people)
-                }.tabViewStyle(.page(indexDisplayMode: .never))
+                Divider().padding(.vertical, 16)
+                Section(header: Text("Trending")) {
+                    RowsOfPosts(posts: posts, onPostDeletion: fetchPosts)
+                    RowsOfPosts(posts: posts, onPostDeletion: fetchPosts)
+                }
+            }
+            .refreshable {
+                fetchPosts()
+                fetchProfiles()
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Discover")
+            .onAppear {
+                fetchPosts()
+                fetchProfiles()
+            }
         }
     }
     
-    func textColorForTabLabel(_ tabForLabel: DiscoverViewTab) -> Color {
-        return tabForLabel == selectedTab ? .primary : .gray
+    func fetchPosts() {
+        Api.get(uri: "/discover/top-posts?profileId=\(loggedInUser.profileId)") { data in
+            DispatchQueue.main.async {
+                if let response: [Post] = Api.Utils.decodeAsObject(data: data) {
+                    posts = response
+                }
+            }
+        }
     }
     
-    func backgrounOpacityForTabLabel(_ tabForLabel: DiscoverViewTab) -> Double {
-        return tabForLabel == selectedTab ? 0.25 : 0
+    func fetchProfiles() {
+        Api.get(uri: "/discover/top-active-profiles?profileId=\(loggedInUser.profileId)") { data in
+            DispatchQueue.main.async {
+                if let response: [Profile] = Api.Utils.decodeAsObject(data: data) {
+                    profiles = response
+                }
+            }
+        }
     }
 }
 
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView()
+        DiscoverView(posts: [Post.mock], profiles: [Profile.mock])
+            .environmentObject(UserProfile.mockUser())
     }
 }

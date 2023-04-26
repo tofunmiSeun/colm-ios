@@ -41,6 +41,7 @@ struct PostListItem: View {
                         Label("Delete", systemImage: "trash.circle")
                             .foregroundColor(.red)
                     }
+                    .buttonStyle(.plain)
                 }
             } label: {
                 Label("Actions", systemImage: "ellipsis")
@@ -48,7 +49,6 @@ struct PostListItem: View {
                     .foregroundColor(.gray)
             }
         }
-        .padding(.horizontal, 16)
     }
     
     private var mainSectionLayout: some View {
@@ -56,7 +56,6 @@ struct PostListItem: View {
             if let postText = post.content {
                 Text("\(postText)")
                     .styleAsPostText()
-                    .padding(.horizontal, 16)
             }
             
             if let mediaContents = post.mediaContents {
@@ -68,7 +67,6 @@ struct PostListItem: View {
                             }
                         }
                         .styleAsMediaContentCarousel()
-                        .padding(.horizontal, 16)
                     }
                 }
             }
@@ -86,10 +84,9 @@ struct PostListItem: View {
             Spacer()
             
             if let postedAtMillis = post.createdAtMilliseconds {
-                ElapsedTimeView(elapsedTimeMilliseconds: postedAtMillis)
+                ElapsedTimeView(elapsedTimeMilliseconds: postedAtMillis).font(.footnote)
             }
         }
-        .padding(.horizontal, 16)
     }
     
     var body: some View {
@@ -103,6 +100,7 @@ struct PostListItem: View {
                 Divider()
             }
             .padding(.bottom, 8)
+            .padding(.horizontal, 8)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

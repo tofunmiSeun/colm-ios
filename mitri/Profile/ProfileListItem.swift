@@ -15,6 +15,7 @@ struct ProfileListItem: View {
         HStack(spacing: 12) {
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
+                .foregroundColor(.gray.opacity(0.8))
                 .scaledToFit()
                 .frame(width: 40)
             VStack {
