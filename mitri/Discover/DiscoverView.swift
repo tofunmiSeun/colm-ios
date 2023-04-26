@@ -23,6 +23,7 @@ struct DiscoverView: View {
     @State var profiles = [Profile]()
     
     @State private var selectedTab: DiscoverViewTab = .topPosts
+    @State private var searchKey = ""
     
     var body: some View {
         NavigationView {
@@ -78,6 +79,11 @@ struct DiscoverView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
             }
+            .searchable(text: $searchKey)
+            .onChange(of: searchKey) { _ in
+                fetchPosts()
+                fetchProfiles()
+            }
             .refreshable {
                 fetchPosts()
                 fetchProfiles()
@@ -92,7 +98,10 @@ struct DiscoverView: View {
     }
     
     func fetchPosts() {
-        Api.get(uri: "/discover/top-posts?profileId=\(loggedInUser.profileId)") { data in
+        let uri = searchKey.isEmpty ? "/discover/top-posts?profileId=\(loggedInUser.profileId)" :
+        "/post/search?searchKey=\(searchKey)&profileId=\(loggedInUser.profileId)"
+        
+        Api.get(uri: uri) { data in
             DispatchQueue.main.async {
                 if let response: [Post] = Api.Utils.decodeAsObject(data: data) {
                     posts = response
@@ -102,7 +111,10 @@ struct DiscoverView: View {
     }
     
     func fetchProfiles() {
-        Api.get(uri: "/discover/top-active-profiles?profileId=\(loggedInUser.profileId)") { data in
+        let uri = searchKey.isEmpty ? "/discover/top-active-profiles?profileId=\(loggedInUser.profileId)" :
+        "/profile/search/username?key=\(searchKey)"
+        
+        Api.get(uri: uri) { data in
             DispatchQueue.main.async {
                 if let response: [Profile] = Api.Utils.decodeAsObject(data: data) {
                     profiles = response
