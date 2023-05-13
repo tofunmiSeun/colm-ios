@@ -33,28 +33,27 @@ struct ChatMessagesView: View {
                 hideKeyboard()
             }
             Divider()
-            ZStack {
-                HStack {
-                    TextField(text: $newChatMessage) {
-                        Text("Say something...")
-                    }
-                    .appTextFieldStyle()
-                    .focused($focusOnTextField)
-                    
-                    Button {
-                        if chat.id != Chat.templateId {
-                            sendMessage()
-                        } else {
-                            createChatThenSendMessage()
-                        }
-                    } label: {
-                        Text("Send")
-                    }
-                    .appButtonStyle()
-                    .disabled(newChatMessage.count == 0)
-                    
+            HStack {
+                TextField(text: $newChatMessage) {
+                    Text("Say something...")
                 }
-            }.padding(8)
+                .appTextFieldStyle()
+                .focused($focusOnTextField)
+                
+                Button {
+                    if chat.id != Chat.templateId {
+                        sendMessage()
+                    } else {
+                        createChatThenSendMessage()
+                    }
+                } label: {
+                    Text("Send")
+                }
+                .appButtonStyle()
+                .disabled(newChatMessage.count == 0)
+                
+            }
+            .padding(8)
         }
         .navigationTitle(chat.title(loggedInUserProfileId: loggedInUser.profileId))
         .onAppear {
