@@ -103,16 +103,16 @@
 		06420C6929F0B98A00B6E9B0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		06420C6B29F0BCF800B6E9B0 /* StartChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartChatView.swift; sourceTree = "<group>"; };
 		06420C6D29F0C78700B6E9B0 /* ProfileListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileListItem.swift; sourceTree = "<group>"; };
-		064B26FE2928269F00412E7E /* mitri.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mitri.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		064B26FE2928269F00412E7E /* colm-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "colm-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		064B27012928269F00412E7E /* mitriApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mitriApp.swift; sourceTree = "<group>"; };
 		064B27032928269F00412E7E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		064B2705292826A100412E7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		064B2708292826A100412E7E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		064B270A292826A100412E7E /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		064B270D292826A100412E7E /* mitri.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mitri.xcdatamodel; sourceTree = "<group>"; };
-		064B2713292826A100412E7E /* mitriTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mitriTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		064B2713292826A100412E7E /* colm-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "colm-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		064B2717292826A100412E7E /* mitriTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mitriTests.swift; sourceTree = "<group>"; };
-		064B271D292826A100412E7E /* mitriUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mitriUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		064B271D292826A100412E7E /* colm-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "colm-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		064B2721292826A100412E7E /* mitriUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mitriUITests.swift; sourceTree = "<group>"; };
 		064B2723292826A100412E7E /* mitriUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mitriUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		064B273529282F7900412E7E /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -194,9 +194,9 @@
 			isa = PBXGroup;
 			children = (
 				06420C6929F0B98A00B6E9B0 /* .gitignore */,
-				064B27002928269F00412E7E /* mitri */,
-				064B2716292826A100412E7E /* mitriTests */,
-				064B2720292826A100412E7E /* mitriUITests */,
+				064B27002928269F00412E7E /* colm */,
+				064B2716292826A100412E7E /* colmTests */,
+				064B2720292826A100412E7E /* colmUITests */,
 				064B26FF2928269F00412E7E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -204,14 +204,14 @@
 		064B26FF2928269F00412E7E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				064B26FE2928269F00412E7E /* mitri.app */,
-				064B2713292826A100412E7E /* mitriTests.xctest */,
-				064B271D292826A100412E7E /* mitriUITests.xctest */,
+				064B26FE2928269F00412E7E /* colm-ios.app */,
+				064B2713292826A100412E7E /* colm-iosTests.xctest */,
+				064B271D292826A100412E7E /* colm-iosUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		064B27002928269F00412E7E /* mitri */ = {
+		064B27002928269F00412E7E /* colm */ = {
 			isa = PBXGroup;
 			children = (
 				064B27372928970900412E7E /* Info.plist */,
@@ -236,7 +236,7 @@
 				06C2E093294AB38F0083BEDD /* Profile */,
 				06B2CD3B29F4AC8F008C17F9 /* WebSocketManager.swift */,
 			);
-			path = mitri;
+			path = colm;
 			sourceTree = "<group>";
 		};
 		064B2707292826A100412E7E /* Preview Content */ = {
@@ -247,21 +247,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		064B2716292826A100412E7E /* mitriTests */ = {
+		064B2716292826A100412E7E /* colmTests */ = {
 			isa = PBXGroup;
 			children = (
 				064B2717292826A100412E7E /* mitriTests.swift */,
 			);
-			path = mitriTests;
+			path = colmTests;
 			sourceTree = "<group>";
 		};
-		064B2720292826A100412E7E /* mitriUITests */ = {
+		064B2720292826A100412E7E /* colmUITests */ = {
 			isa = PBXGroup;
 			children = (
 				064B2721292826A100412E7E /* mitriUITests.swift */,
 				064B2723292826A100412E7E /* mitriUITestsLaunchTests.swift */,
 			);
-			path = mitriUITests;
+			path = colmUITests;
 			sourceTree = "<group>";
 		};
 		06B4A0B3294B655100866F8F /* Discover */ = {
@@ -327,9 +327,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		064B26FD2928269F00412E7E /* mitri */ = {
+		064B26FD2928269F00412E7E /* colm-ios */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 064B2727292826A100412E7E /* Build configuration list for PBXNativeTarget "mitri" */;
+			buildConfigurationList = 064B2727292826A100412E7E /* Build configuration list for PBXNativeTarget "colm-ios" */;
 			buildPhases = (
 				064B26FA2928269F00412E7E /* Sources */,
 				064B26FB2928269F00412E7E /* Frameworks */,
@@ -339,18 +339,18 @@
 			);
 			dependencies = (
 			);
-			name = mitri;
+			name = "colm-ios";
 			packageProductDependencies = (
 				064B273129282E4300412E7E /* GoogleSignIn */,
 				064B273329282E4300412E7E /* GoogleSignInSwift */,
 			);
 			productName = mitri;
-			productReference = 064B26FE2928269F00412E7E /* mitri.app */;
+			productReference = 064B26FE2928269F00412E7E /* colm-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
-		064B2712292826A100412E7E /* mitriTests */ = {
+		064B2712292826A100412E7E /* colm-iosTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 064B272A292826A100412E7E /* Build configuration list for PBXNativeTarget "mitriTests" */;
+			buildConfigurationList = 064B272A292826A100412E7E /* Build configuration list for PBXNativeTarget "colm-iosTests" */;
 			buildPhases = (
 				064B270F292826A100412E7E /* Sources */,
 				064B2710292826A100412E7E /* Frameworks */,
@@ -361,14 +361,14 @@
 			dependencies = (
 				064B2715292826A100412E7E /* PBXTargetDependency */,
 			);
-			name = mitriTests;
+			name = "colm-iosTests";
 			productName = mitriTests;
-			productReference = 064B2713292826A100412E7E /* mitriTests.xctest */;
+			productReference = 064B2713292826A100412E7E /* colm-iosTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		064B271C292826A100412E7E /* mitriUITests */ = {
+		064B271C292826A100412E7E /* colm-iosUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 064B272D292826A100412E7E /* Build configuration list for PBXNativeTarget "mitriUITests" */;
+			buildConfigurationList = 064B272D292826A100412E7E /* Build configuration list for PBXNativeTarget "colm-iosUITests" */;
 			buildPhases = (
 				064B2719292826A100412E7E /* Sources */,
 				064B271A292826A100412E7E /* Frameworks */,
@@ -379,9 +379,9 @@
 			dependencies = (
 				064B271F292826A100412E7E /* PBXTargetDependency */,
 			);
-			name = mitriUITests;
+			name = "colm-iosUITests";
 			productName = mitriUITests;
-			productReference = 064B271D292826A100412E7E /* mitriUITests.xctest */;
+			productReference = 064B271D292826A100412E7E /* colm-iosUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -407,7 +407,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 064B26F92928269F00412E7E /* Build configuration list for PBXProject "mitri" */;
+			buildConfigurationList = 064B26F92928269F00412E7E /* Build configuration list for PBXProject "colm-ios" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -423,9 +423,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				064B26FD2928269F00412E7E /* mitri */,
-				064B2712292826A100412E7E /* mitriTests */,
-				064B271C292826A100412E7E /* mitriUITests */,
+				064B26FD2928269F00412E7E /* colm-ios */,
+				064B2712292826A100412E7E /* colm-iosTests */,
+				064B271C292826A100412E7E /* colm-iosUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -533,12 +533,12 @@
 /* Begin PBXTargetDependency section */
 		064B2715292826A100412E7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 064B26FD2928269F00412E7E /* mitri */;
+			target = 064B26FD2928269F00412E7E /* colm-ios */;
 			targetProxy = 064B2714292826A100412E7E /* PBXContainerItemProxy */;
 		};
 		064B271F292826A100412E7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 064B26FD2928269F00412E7E /* mitri */;
+			target = 064B26FD2928269F00412E7E /* colm-ios */;
 			targetProxy = 064B271E292826A100412E7E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -685,7 +685,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tofunmi.mitri;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tofunmi.colm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -721,7 +721,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.tofunmi.mitri;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tofunmi.colm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -746,7 +746,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mitri.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mitri";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/colm-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/colm-ios";
 			};
 			name = Debug;
 		};
@@ -766,7 +766,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mitri.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mitri";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/colm-ios.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/colm-ios";
 			};
 			name = Release;
 		};
@@ -809,7 +809,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		064B26F92928269F00412E7E /* Build configuration list for PBXProject "mitri" */ = {
+		064B26F92928269F00412E7E /* Build configuration list for PBXProject "colm-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				064B2725292826A100412E7E /* Debug */,
@@ -818,7 +818,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		064B2727292826A100412E7E /* Build configuration list for PBXNativeTarget "mitri" */ = {
+		064B2727292826A100412E7E /* Build configuration list for PBXNativeTarget "colm-ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				064B2728292826A100412E7E /* Debug */,
@@ -827,7 +827,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		064B272A292826A100412E7E /* Build configuration list for PBXNativeTarget "mitriTests" */ = {
+		064B272A292826A100412E7E /* Build configuration list for PBXNativeTarget "colm-iosTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				064B272B292826A100412E7E /* Debug */,
@@ -836,7 +836,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		064B272D292826A100412E7E /* Build configuration list for PBXNativeTarget "mitriUITests" */ = {
+		064B272D292826A100412E7E /* Build configuration list for PBXNativeTarget "colm-iosUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				064B272E292826A100412E7E /* Debug */,
